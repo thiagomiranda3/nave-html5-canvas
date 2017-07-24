@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <title>First Canvas</title>
+    </head>
+
+    <body>
+        <canvas id="meu_canvas" width="500" height="500"></canvas>
+
+        <script>
+            var canvas = document.getElementById("meu_canvas")
+
+            var ctx = canvas.getContext("2d")
+
+            ctx.beginPath()
+            
+            var image = new Image()
+
+            image.src = 'img/explosao.png'
+            image.onload = function () {
+                ctx.drawImage(image,
+                80, 10, 60, 65,
+                20, 20, 120, 130)
+            }
+        </script>
+    </body>
+</html>
