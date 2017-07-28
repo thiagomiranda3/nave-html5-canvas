@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <title>Testando a classe spritesheet</title>
+        <script src="spritesheet.js"></script>
+    </head>
+
+    <body>
+        <canvas id="meu_canvas" width="500" height="500"></canvas>
+
+        <script>
+            var context = document.getElementById("meu_canvas").getContext("2d")
+
+            var imgSonic = new Image()
+            imgSonic.src = "img/sonic-sprites.png"
+
+            var sheet = new Spritesheet(context, imgSonic, 3, 8)
+            
+            // duração de cada quadro
+            sheet.intervalo = 60
+
+            // da esquerda pra direita
+            sheet.linha = 1
+
+            // animação
+            imgSonic.onload = gameloop
+
+            function gameloop () {
+                context.clearRect(0, 0, context.canvas.width, context.canvas.height)
+
+                // avançar na animação
+                sheet.proximoQuadro()
+
+                // posição para desenhar o quadro atual
+                sheet.desenhar(100, 100)
+
+                requestAnimationFrame(gameloop)
+            }
+        </script>
+    </body>
+</html>
