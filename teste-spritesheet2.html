@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <title>Testando a classe spritesheet</title>
+        <script src="spritesheet.js"></script>
+        <script src="animacao.js"></script>
+        <script src="teclado.js"></script>
+        <script src="sonic.js"></script>
+    </head>
+
+    <body>
+        <canvas id="meu_canvas" width="800" height="500"></canvas>
+
+        <script>
+            let context = document.getElementById("meu_canvas").getContext("2d")
+
+            let teclado = new Teclado(document)
+            let animacao = new Animacao(context)
+
+            let imgSonic = new Image()
+            imgSonic.src = "img/sonic-sprites.png"
+
+            let sonic = new Sonic(context, teclado, imgSonic)
+            sonic.x = 0
+            sonic.y = 200
+            animacao.novoSprite(sonic)
+
+            imgSonic.onload = function () {
+                animacao.ligar()
+            }
+        </script>
+    </body>
+</html>
