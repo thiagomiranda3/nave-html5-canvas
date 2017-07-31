@@ -31,3 +31,18 @@ Bola.prototype.desenhar = function () {
     // volta às configurações padrões
     ctx.restore()
 }
+
+Bola.prototype.retangulosColisao = function () {
+    return [
+        {
+            x: this.x - this.raio,
+            y: this.y - this.raio,
+            largura: this.raio * 2,
+            altura: this.raio * 2
+        }
+    ]
+}
+
+Bola.prototype.colidiuCom = function (sprite) {
+    alert('PÁ')
+}

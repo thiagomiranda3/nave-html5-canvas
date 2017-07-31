@@ -24,8 +24,8 @@ Animacao.prototype.proximoFrame = function () {
     this.limparTela()
     
     // Atualiz e desenha os sprites
-    this.sprites.forEach((sprite, i) => sprite.atualizar())
-    this.sprites.forEach((sprite, i) => sprite.desenhar())
+    this.sprites.forEach((sprite) => sprite.atualizar())
+    this.sprites.forEach((sprite) => sprite.desenhar())
 
     var animacao = this
     requestAnimationFrame(() => animacao.proximoFrame())

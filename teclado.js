@@ -14,7 +14,7 @@ function Teclado(elemento) {
     // Funções de disparo
     this.funcoesDisparo = []
 
-    var teclado = this
+    const teclado = this
 
     elemento.addEventListener('keydown', function(evento) {
         let tecla = evento.keyCode
