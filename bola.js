@@ -44,4 +44,9 @@ Bola.prototype.retangulosColisao = function () {
 }
 
 Bola.prototype.colidiuCom = function (sprite) {
+    if(this.x != sprite.x)
+        this.velocidadeX *= -1
+
+    if(this.y != sprite.y)
+        this.velocidadeY *= -1
 }
