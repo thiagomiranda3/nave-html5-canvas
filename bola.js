@@ -44,5 +44,4 @@ Bola.prototype.retangulosColisao = function () {
 }
 
 Bola.prototype.colidiuCom = function (sprite) {
-    alert('PÁ')
 }
