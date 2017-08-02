@@ -1,5 +1,7 @@
 const SETA_ESQUERDA = 37
 const SETA_DIREITA = 39
+const SETA_ACIMA = 38
+const SETA_ABAIXO = 40
 const ESPACO = 32
 
 function Teclado(elemento) {
