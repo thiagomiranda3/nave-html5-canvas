@@ -24,3 +24,8 @@ Nave.prototype.atualizar = function () {
 Nave.prototype.desenhar = function () {
     this.context.drawImage(this.imagem, this.x, this.y, this.imagem.width, this.imagem.height)
 }
+
+Nave.prototype.atirar = function () {
+    let t = new Tiro(this.context, this)
+    this.animacao.novoSprite(t)
+}

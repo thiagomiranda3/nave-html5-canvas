@@ -5,6 +5,7 @@ function Animacao (ctx) {
 }
 
 Animacao.prototype.novoSprite = function (sprite) {
+    sprite.animacao = this
     this.sprites.push(sprite)
 }
 

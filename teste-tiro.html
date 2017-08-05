@@ -6,6 +6,7 @@
         <script src="animacao.js"></script>
         <script src="teclado.js"></script>
         <script src="nave.js"></script>
+        <script src="tiro.js"></script>
     </head>
 
     <body>
@@ -22,6 +23,10 @@
             let nave = new Nave(context, teclado, imgNave)
 
             animacao.novoSprite(nave)
+
+            teclado.disparou(ESPACO, function() {
+                nave.atirar()
+            })
 
             imgNave.onload = () => {
                 nave.x = canvas.width / 2 - imgNave.width / 2
