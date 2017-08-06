@@ -11,7 +11,7 @@ function Ovni (context, imagem) {
 }
 
 Ovni.prototype.atualizar = function () {
-    this.y += this.velocidade
+    this.y += this.velocidade * this.animacao.decorrido / 1000;
 
     if(this.y > this.context.canvas.height) {
         this.animacao.excluirSprite(this)

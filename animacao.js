@@ -5,6 +5,8 @@ function Animacao (ctx) {
     this.processamentosExcluir = []
     this.ligado = false
     this.processamentos = []
+    this.ultimoCiclo = 0
+    this.decorrido = 0
 }
 
 Animacao.prototype.novoProcessamento = function (processamento) {
@@ -38,7 +40,9 @@ Animacao.prototype.proximoFrame = function () {
     if(!this.ligado)
         return
 
-    this.limparTela()
+    let agora = new Date().getTime()
+    if(this.ultimoCiclo == 0) this.ultimoCiclo = agora
+    this.decorrido = agora - this.ultimoCiclo
     
     // Atualiza e desenha os sprites
     this.sprites.forEach((sprite) => sprite.atualizar())
@@ -48,6 +52,8 @@ Animacao.prototype.proximoFrame = function () {
     this.processamentos.forEach((processamento) => processamento.processar())
 
     this.processarExclusoes()
+
+    this.ultimoCiclo = agora
 
     var animacao = this
     requestAnimationFrame(() => animacao.proximoFrame())

@@ -13,16 +13,16 @@ function Nave(context, teclado, imagem) {
 
 Nave.prototype.atualizar = function () {
     if (this.teclado.pressionada(SETA_ESQUERDA) && this.x > 0)
-        this.x -= this.velocidade
+        this.x -= this.velocidade * this.animacao.decorrido / 1000;
 
     if(this.teclado.pressionada(SETA_DIREITA) && this.x < this.context.canvas.width - this.imagem.width)
-        this.x += this.velocidade
+        this.x += this.velocidade * this.animacao.decorrido / 1000;
 
     if(this.teclado.pressionada(SETA_ACIMA) && this.y > 0)
-        this.y -= this.velocidade
+        this.y -= this.velocidade * this.animacao.decorrido / 1000;
 
     if(this.teclado.pressionada(SETA_ABAIXO) && this.y < this.context.canvas.height - this.imagem.height)
-        this.y += this.velocidade
+        this.y += this.velocidade * this.animacao.decorrido / 1000;
 }
 
 Nave.prototype.desenhar = function () {
