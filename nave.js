@@ -5,6 +5,9 @@ function Nave(context, teclado, imagem) {
     this.x = 0
     this.y = 0
     this.velocidade = 0
+    this.spritesheet = new Spritesheet(context, imagem, 3, 2)
+    this.spritesheet.linha = 0
+    this.spritesheet.intervalo = 100
 
     // objetos ganham referências na classes Animacao e Colisor
     this.animacao = null
@@ -15,18 +18,26 @@ Nave.prototype.atualizar = function () {
     if (this.teclado.pressionada(SETA_ESQUERDA) && this.x > 0)
         this.x -= this.velocidade * this.animacao.decorrido / 1000;
 
-    if(this.teclado.pressionada(SETA_DIREITA) && this.x < this.context.canvas.width - this.imagem.width)
+    if(this.teclado.pressionada(SETA_DIREITA) && this.x < this.context.canvas.width - 36)
         this.x += this.velocidade * this.animacao.decorrido / 1000;
 
     if(this.teclado.pressionada(SETA_ACIMA) && this.y > 0)
         this.y -= this.velocidade * this.animacao.decorrido / 1000;
 
-    if(this.teclado.pressionada(SETA_ABAIXO) && this.y < this.context.canvas.height - this.imagem.height)
+    if(this.teclado.pressionada(SETA_ABAIXO) && this.y < this.context.canvas.height - 48)
         this.y += this.velocidade * this.animacao.decorrido / 1000;
 }
 
 Nave.prototype.desenhar = function () {
-    this.context.drawImage(this.imagem, this.x, this.y, this.imagem.width, this.imagem.height)
+    if(this.teclado.pressionada(SETA_ESQUERDA))
+        this.spritesheet.linha = 1
+    else if(this.teclado.pressionada(SETA_DIREITA))
+        this.spritesheet.linha = 2
+    else
+        this.spritesheet.linha = 0
+
+    this.spritesheet.desenhar(this.x, this.y)
+    this.spritesheet.proximoQuadro()
 }
 
 Nave.prototype.atirar = function () {

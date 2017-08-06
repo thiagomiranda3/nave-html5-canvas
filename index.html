@@ -6,6 +6,7 @@
         <script src="animacao.js"></script>
         <script src="teclado.js"></script>
         <script src="colisor.js"></script>
+        <script src="spritesheet.js"></script>
         <script src="nave.js"></script>
         <script src="tiro.js"></script>
         <script src="ovni.js"></script>
@@ -31,7 +32,7 @@
                     espaco: "fundo-espaco.png",
                     estrelas: "fundo-estrelas.png",
                     nuvens: "fundo-nuvens.png",
-                    nave: "nave.png",
+                    nave: "nave-spritesheet.png",
                     ovni: "ovni.png"
                 }
 
@@ -75,8 +76,8 @@
                 sprites.estrelas.velocidade = 5
                 sprites.nuvens.velocidade = 40
 
-                sprites.nave.x = canvas.width / 2 - imagens.nave.width / 2
-                sprites.nave.y = canvas.height - imagens.nave.height
+                sprites.nave.x = canvas.width / 2 - 18
+                sprites.nave.y = canvas.height - 48
                 sprites.nave.velocidade = 350
 
                 engine.teclado.disparou(ESPACO, function() {

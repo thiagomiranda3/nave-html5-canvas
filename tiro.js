@@ -3,13 +3,13 @@ function Tiro (context, nave) {
     this.nave = nave
 
     // posiciona o tiro no bico da nave
-    this.largura = 4
+    this.largura = 3
     this.altura = 20
-    this.x = nave.x + nave.imagem.width / 2 - this.largura / 2
+    this.x = nave.x + 16
     this.y = nave.y - this.altura
     this.velocidade = 700
 
-    this.cor = "red"
+    this.cor = "yellow"
 
     // objetos ganham referências na classes Animacao e Colisor
     this.animacao = null
