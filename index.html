@@ -1,25 +1,119 @@
+<!DOCTYPE html>
+
 <html>
     <head>
-        <title>First Canvas</title>
+        <title>Nave Espacial Controlável</title>
+        <script src="animacao.js"></script>
+        <script src="teclado.js"></script>
+        <script src="colisor.js"></script>
+        <script src="nave.js"></script>
+        <script src="tiro.js"></script>
+        <script src="ovni.js"></script>
+        <script src="fundo.js"></script>
     </head>
 
     <body>
         <canvas id="meu_canvas" width="500" height="500"></canvas>
-
         <script>
-            var canvas = document.getElementById("meu_canvas")
+            let canvas = document.getElementById("meu_canvas")
+            let context = canvas.getContext("2d")
 
-            var ctx = canvas.getContext("2d")
+            let engine = {},
+                sprites = {},
+                imagens = {},
+                imgCarregadas = 0
+                totalImagens = 0
 
-            ctx.beginPath()
-            
-            var image = new Image()
+            carregarImagens()
 
-            image.src = 'img/explosao.png'
-            image.onload = function () {
-                ctx.drawImage(image,
-                80, 10, 60, 65,
-                20, 20, 120, 130)
+            function carregarImagens() {
+                imagens = {
+                    espaco: "fundo-espaco.png",
+                    estrelas: "fundo-estrelas.png",
+                    nuvens: "fundo-nuvens.png",
+                    nave: "nave.png",
+                    ovni: "ovni.png"
+                }
+
+                for(i in imagens) {
+                    var img = new Image()
+                    img.src = "img/" + imagens[i]
+                    img.onload = carregando
+                    totalImagens++
+                    imagens[i] = img
+                }
+            }
+
+            function carregando() {
+                imgCarregadas++
+                if(imgCarregadas == totalImagens) iniciarObjetos()
+            }
+
+            function iniciarObjetos() {
+                engine.teclado = new Teclado(document)
+                engine.animacao = new Animacao(context)
+                engine.colisor = new Colisor()
+                
+                sprites.espaco = new Fundo(context, imagens.espaco)
+                sprites.estrelas = new Fundo(context, imagens.estrelas)
+                sprites.nuvens = new Fundo(context, imagens.nuvens)
+                sprites.nave = new Nave(context, engine.teclado, imagens.nave)
+
+                engine.animacao.novoSprite(sprites.espaco)
+                engine.animacao.novoSprite(sprites.estrelas)
+                engine.animacao.novoSprite(sprites.nuvens)
+                engine.animacao.novoSprite(sprites.nave)
+
+                engine.colisor.novoSprite(sprites.nave)
+                engine.animacao.novoProcessamento(engine.colisor)
+
+                configuracoesIniciais()
+            }
+
+            function configuracoesIniciais() {
+                sprites.espaco.velocidade = 3
+                sprites.estrelas.velocidade = 5
+                sprites.nuvens.velocidade = 10
+
+                sprites.nave.x = canvas.width / 2 - imagens.nave.width / 2
+                sprites.nave.y = canvas.height - imagens.nave.height
+                sprites.nave.velocidade = 5
+
+                engine.teclado.disparou(ESPACO, function() {
+                    sprites.nave.atirar()
+                })
+
+                engine.animacao.ligar()
+
+                criacaoInimigos()
+            }
+
+            function criacaoInimigos() {
+                criadorInimigos = {
+                    ultimoOvni: new Date().getTime(),
+                    processar: function () {
+                        const agora = new Date().getTime()
+                        const decorrido = agora - this.ultimoOvni
+
+                        if(decorrido > 1000) {
+                            novoOvni()
+                            this.ultimoOvni = agora
+                        }
+                    }
+                }
+
+                engine.animacao.novoProcessamento(criadorInimigos)
+            }
+
+            function novoOvni() {
+                let ovni = new Ovni(context, imagens.ovni)
+
+                ovni.velocidade = Math.floor(5 + Math.random() * (20 - 5 + 1))
+                ovni.x = Math.floor(Math.random() * (canvas.width - imagens.ovni.width + 1))
+                ovni.y = -imagens.ovni.height
+
+                engine.animacao.novoSprite(ovni)
+                engine.colisor.novoSprite(ovni)
             }
         </script>
     </body>
