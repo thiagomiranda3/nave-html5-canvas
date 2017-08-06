@@ -24,6 +24,8 @@
             let animacao = new Animacao(context)
             let colisor = new Colisor()
 
+            animacao.novoProcessamento(colisor)
+
             // Imagens
             let imgNave = new Image()
             imgNave.src = "img/nave.png"
@@ -57,6 +59,7 @@
             let fundo3 = new Fundo(context, imgNuvens);
             fundo3.velocidade = 10;
             animacao.novoSprite(fundo3);
+
             let nave = new Nave(context, teclado, imgNave)
 
             animacao.novoSprite(nave)

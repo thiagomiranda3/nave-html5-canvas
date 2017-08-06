@@ -1,10 +1,16 @@
 function Colisor () {
     this.sprites = []
+    this.spritesExcluir = []
     this.aoColidir = null
 }
 
 Colisor.prototype.novoSprite = function (sprite) {
     this.sprites.push(sprite)
+    sprite.colisor = this
+}
+
+Colisor.prototype.excluirSprite = function (sprite) {
+    this.spritesExcluir.push(sprite)
 }
 
 Colisor.prototype.processar = function () {
@@ -28,6 +34,8 @@ Colisor.prototype.processar = function () {
             }
         }
     }
+
+    this.processarExclusoes()
 }
 
 Colisor.prototype.testarColisao = function(sprite1, sprite2) {
@@ -65,4 +73,17 @@ Colisor.prototype.stringUnica = function (sprite) {
     return retangulos.reduce((a, b) => {
         return a + `x: ${b.x}, y: ${b.y}, l: ${b.largura}, a: ${b.altura}\n`
     }, "")
+}
+
+Colisor.prototype.processarExclusoes = function () {
+    let novoArray = []
+
+    this.sprites.forEach((sprite) => {
+        if(this.spritesExcluir.indexOf(sprite) == -1)
+            novoArray.push(sprite)
+    })
+
+    this.spritesExcluir = []
+
+    this.sprites = novoArray
 }

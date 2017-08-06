@@ -4,10 +4,19 @@ function Ovni (context, imagem) {
     this.x = 0
     this.y = 0
     this.velocidade = 0
+
+    // objetos ganham referências na classes Animacao e Colisor
+    this.animacao = null
+    this.colisor = null
 }
 
 Ovni.prototype.atualizar = function () {
     this.y += this.velocidade
+
+    if(this.y > this.context.canvas.height) {
+        this.animacao.excluirSprite(this)
+        this.colisor.excluirSprite(this)
+    }
 }
 
 Ovni.prototype.desenhar = function () {
@@ -38,5 +47,10 @@ Ovni.prototype.retangulosColisao = function () {
 }
 
 Ovni.prototype.colidiuCom = function (outro) {
-    
+    if(outro instanceof Tiro) {
+        this.animacao.excluirSprite(this)
+        this.colisor.excluirSprite(this)
+        this.animacao.excluirSprite(outro)
+        this.colisor.excluirSprite(outro)
+    }
 }

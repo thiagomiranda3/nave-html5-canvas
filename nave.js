@@ -5,6 +5,10 @@ function Nave(context, teclado, imagem) {
     this.x = 0
     this.y = 0
     this.velocidade = 0
+
+    // objetos ganham referências na classes Animacao e Colisor
+    this.animacao = null
+    this.colisor = null
 }
 
 Nave.prototype.atualizar = function () {
@@ -55,5 +59,8 @@ Nave.prototype.retangulosColisao = function () {
 }
 
 Nave.prototype.colidiuCom = function (outro) {
-    
+    if(outro instanceof Ovni) {
+        this.animacao.desligar()
+        alert("Game Over!")
+    }
 }

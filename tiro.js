@@ -10,10 +10,20 @@ function Tiro (context, nave) {
     this.velocidade = 10
 
     this.cor = "red"
+
+    // objetos ganham referências na classes Animacao e Colisor
+    this.animacao = null
+    this.colisor = null
 }
 
 Tiro.prototype.atualizar = function () {
     this.y -= this.velocidade
+
+    // excluir o tiro quando sumir da tela
+    if(this.y < -this.altura) {
+        this.animacao.excluirSprite(this)
+        this.colisor.excluirSprite(this)
+    }
 }
 
 Tiro.prototype.desenhar = function () {
