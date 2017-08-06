@@ -22,3 +22,18 @@ Tiro.prototype.desenhar = function () {
     this.context.fillRect(this.x, this.y, this.largura, this.altura)
     this.context.restore()
 }
+
+Tiro.prototype.retangulosColisao = function () {
+    return [
+        {
+            x: this.x,
+            y: this.y,
+            largura: this.largura,
+            altura: this.altura
+        }
+    ]
+}
+
+Tiro.prototype.colidiuCom = function (outro) {
+
+}
