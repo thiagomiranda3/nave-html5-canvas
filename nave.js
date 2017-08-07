@@ -1,7 +1,8 @@
-function Nave(context, teclado, imagem) {
+function Nave(context, teclado, imagem, imgExplosao) {
     this.context = context
     this.teclado = teclado
     this.imagem = imagem
+    this.imgExplosao = imgExplosao
     this.x = 0
     this.y = 0
     this.velocidade = 0
@@ -71,7 +72,20 @@ Nave.prototype.retangulosColisao = function () {
 
 Nave.prototype.colidiuCom = function (outro) {
     if(outro instanceof Ovni) {
-        this.animacao.desligar()
-        alert("Game Over!")
+        this.animacao.excluirSprite(this)
+        this.animacao.excluirSprite(outro)
+        this.colisor.excluirSprite(this)
+        this.colisor.excluirSprite(outro)
+
+        let exp1 = new Explosao(this.context, this.imgExplosao, this.x, this.y)
+        let exp2 = new Explosao(this.context, this.imgExplosao, outro.x, outro.y)
+
+        exp1.fimDaExplosao = function () {
+            animacao.desligar()
+            alert("GAME OVER")
+        }
+        
+        this.animacao.novoSprite(exp1)
+        this.animacao.novoSprite(exp2)
     }
 }

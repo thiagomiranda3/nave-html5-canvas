@@ -7,6 +7,7 @@ function Spritesheet(context, imagem, linhas, colunas) {
     this.linha = 0
     this.coluna = 0
     this.ultimoTempo = new Date().getTime()
+    this.fimDoCiclo = null
 }
 
 Spritesheet.prototype.proximoQuadro = function () {
@@ -17,8 +18,10 @@ Spritesheet.prototype.proximoQuadro = function () {
 
     if(this.coluna < this.numColunas - 1)
         this.coluna++
-    else
+    else {
         this.coluna = 0
+        if(this.fimDoCiclo) this.fimDoCiclo()
+    }
 
     this.ultimoTempo = agora
 }

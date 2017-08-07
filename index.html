@@ -11,6 +11,7 @@
         <script src="tiro.js"></script>
         <script src="ovni.js"></script>
         <script src="fundo.js"></script>
+        <script src="explosao.js"></script>
     </head>
 
     <body>
@@ -33,7 +34,8 @@
                     estrelas: "fundo-estrelas.png",
                     nuvens: "fundo-nuvens.png",
                     nave: "nave-spritesheet.png",
-                    ovni: "ovni.png"
+                    ovni: "ovni.png",
+                    explosao: "explosao.png"
                 }
 
                 for(i in imagens) {
@@ -58,7 +60,7 @@
                 sprites.espaco = new Fundo(context, imagens.espaco)
                 sprites.estrelas = new Fundo(context, imagens.estrelas)
                 sprites.nuvens = new Fundo(context, imagens.nuvens)
-                sprites.nave = new Nave(context, engine.teclado, imagens.nave)
+                sprites.nave = new Nave(context, engine.teclado, imagens.nave, imagens.explosao)
 
                 engine.animacao.novoSprite(sprites.espaco)
                 engine.animacao.novoSprite(sprites.estrelas)
@@ -107,7 +109,7 @@
             }
 
             function novoOvni() {
-                let ovni = new Ovni(context, imagens.ovni)
+                let ovni = new Ovni(context, imagens.ovni, imagens.explosao)
 
                 ovni.velocidade = Math.floor(150 + Math.random() * (600 - 150 + 1))
                 ovni.x = Math.floor(Math.random() * (canvas.width - imagens.ovni.width + 1))
