@@ -20,6 +20,8 @@
             let canvas = document.getElementById("meu_canvas")
             let context = canvas.getContext("2d")
 
+            const musicaAcao = new Audio()
+
             let engine = {},
                 sprites = {},
                 criadorInimigos = {},
@@ -28,6 +30,7 @@
                 totalImagens = 0
 
             carregarImagens()
+            carregarMusicas()
 
             function carregarImagens() {
                 imagens = {
@@ -46,6 +49,14 @@
                     totalImagens++
                     imagens[i] = img
                 }
+            }
+
+            function carregarMusicas() {
+                musicaAcao.src = "snd/musica-acao.mp3"
+                musicaAcao.load()
+                musicaAcao.volume = 0.8
+                musicaAcao.loop = true
+                musicaAcao.play()
             }
 
             function carregando() {
@@ -90,6 +101,7 @@
                         criadorInimigos.ultimoOvni = new Date().getTime()
                         engine.animacao.desligar()
                         ativarTiro(false)
+                        musicaAcao.pause()
 
                         // escrever pausado
                         context.save()
@@ -102,6 +114,7 @@
                     } else {
                         engine.animacao.ligar()
                         ativarTiro(true)
+                        musicaAcao.play()
                     }
                 })
 

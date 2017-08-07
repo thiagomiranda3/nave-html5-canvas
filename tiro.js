@@ -1,3 +1,8 @@
+const SOM_TIRO = new Audio()
+SOM_TIRO.src = "snd/tiro.mp3"
+SOM_TIRO.volume = 0.2
+SOM_TIRO.load()
+
 function Tiro (context, nave) {
     this.context = context
     this.nave = nave
@@ -14,6 +19,9 @@ function Tiro (context, nave) {
     // objetos ganham referências na classes Animacao e Colisor
     this.animacao = null
     this.colisor = null
+
+    SOM_TIRO.currentTime = 0.0
+    SOM_TIRO.play()
 }
 
 Tiro.prototype.atualizar = function () {

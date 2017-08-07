@@ -1,3 +1,8 @@
+const SOM_EXPLOSAO = new Audio()
+SOM_EXPLOSAO.src = "snd/explosao.mp3"
+SOM_EXPLOSAO.volume = 0.2
+SOM_EXPLOSAO.load()
+
 function Explosao(context, imagem, x, y) {
     let explosao = this
     this.context = context
@@ -10,6 +15,9 @@ function Explosao(context, imagem, x, y) {
     }
     this.x = x
     this.y = y
+
+    SOM_EXPLOSAO.currentTime = 0.0
+    SOM_EXPLOSAO.play()
 }
 
 Explosao.prototype.atualizar = function () {
