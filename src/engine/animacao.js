@@ -41,6 +41,8 @@ Animacao.prototype.proximoFrame = function () {
     if(!this.ligado)
         return
 
+    this.limparTela()
+
     let agora = new Date().getTime()
     if(this.ultimoCiclo == 0) this.ultimoCiclo = agora
     this.decorrido = agora - this.ultimoCiclo
