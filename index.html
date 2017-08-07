@@ -22,6 +22,7 @@
 
             let engine = {},
                 sprites = {},
+                criadorInimigos = {},
                 imagens = {},
                 imgCarregadas = 0
                 totalImagens = 0
@@ -82,13 +83,40 @@
                 sprites.nave.y = canvas.height - 48
                 sprites.nave.velocidade = 350
 
-                engine.teclado.disparou(ESPACO, function() {
-                    sprites.nave.atirar()
+                ativarTiro(true)
+
+                engine.teclado.disparou(ENTER, function() {
+                    if(engine.animacao.ligado) {
+                        criadorInimigos.ultimoOvni = new Date().getTime()
+                        engine.animacao.desligar()
+                        ativarTiro(false)
+
+                        // escrever pausado
+                        context.save()
+                        context.fillStyle = 'white'
+                        context.strokeStyle = 'black'
+                        context.font = '50px sans-serif'
+                        context.fillText('Pausado', 160, 200)
+                        context.strokeText('Pausado', 160, 200)
+                        context.restore()
+                    } else {
+                        engine.animacao.ligar()
+                        ativarTiro(true)
+                    }
                 })
 
                 engine.animacao.ligar()
 
                 criacaoInimigos()
+            }
+
+            function ativarTiro(ativar) {
+                if(ativar)
+                    engine.teclado.disparou(ESPACO, function() {
+                        sprites.nave.atirar()
+                    })
+                else
+                    engine.teclado.disparou(ESPACO, null)
             }
 
             function criacaoInimigos() {

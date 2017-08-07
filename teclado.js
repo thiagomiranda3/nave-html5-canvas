@@ -3,6 +3,7 @@ const SETA_DIREITA = 39
 const SETA_ACIMA = 38
 const SETA_ABAIXO = 40
 const ESPACO = 32
+const ENTER = 13
 
 function Teclado(elemento) {
     this.elemento = elemento
