@@ -84,11 +84,13 @@ function iniciarObjetos() {
     sprites.estrelas = new Fundo(context, imagens.estrelas)
     sprites.nuvens = new Fundo(context, imagens.nuvens)
     sprites.nave = new Nave(context, engine.teclado, imagens.nave, imagens.explosao)
+    sprites.painel = new Painel(context, sprites.nave)
 
     engine.animacao.novoSprite(sprites.espaco)
     engine.animacao.novoSprite(sprites.estrelas)
     engine.animacao.novoSprite(sprites.nuvens)
     engine.animacao.novoSprite(sprites.nave)
+    engine.animacao.novoSprite(sprites.painel)
 
     engine.colisor.novoSprite(sprites.nave)
     engine.animacao.novoProcessamento(engine.colisor)
@@ -99,9 +101,13 @@ function configuracoesIniciais() {
     sprites.estrelas.velocidade = 5
     sprites.nuvens.velocidade = 40
 
-    sprites.nave.x = canvas.width / 2 - 18
-    sprites.nave.y = canvas.height - 48
+    sprites.nave.posicionar()
     sprites.nave.velocidade = 350
+
+    sprites.nave.acabaramVidas = function () {
+        animacao.desligar()
+        alert("GAME OVER")
+    }
 
     ativarTiro(true)
 

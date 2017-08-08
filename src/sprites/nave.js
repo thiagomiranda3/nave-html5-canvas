@@ -13,6 +13,9 @@ function Nave(context, teclado, imagem, imgExplosao) {
     // objetos ganham referências na classes Animacao e Colisor
     this.animacao = null
     this.colisor = null
+
+    this.acabaramVidas = null
+    this.vidasExtras = 3
 }
 
 Nave.prototype.atualizar = function () {
@@ -80,12 +83,27 @@ Nave.prototype.colidiuCom = function (outro) {
         let exp1 = new Explosao(this.context, this.imgExplosao, this.x, this.y)
         let exp2 = new Explosao(this.context, this.imgExplosao, outro.x, outro.y)
 
+        const nave = this
         exp1.fimDaExplosao = function () {
-            animacao.desligar()
-            alert("GAME OVER")
+            nave.vidasExtras--
+
+            if(nave.vidasExtras < 0) {
+                if(nave.acabaramVidas) nave.acabaramVidas()
+            } else {
+                nave.colisor.novoSprite(nave)
+                nave.animacao.novoSprite(nave)
+
+                nave.posicionar()
+            }
         }
         
         this.animacao.novoSprite(exp1)
         this.animacao.novoSprite(exp2)
     }
+}
+
+Nave.prototype.posicionar = function () {
+    const canvas = this.context.canvas
+    sprites.nave.x = canvas.width / 2 - 18
+    sprites.nave.y = canvas.height - 48
 }
