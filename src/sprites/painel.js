@@ -4,6 +4,7 @@ function Painel(context, nave) {
     this.spritesheet = new Spritesheet(context, nave.imagem, 3, 2)
     this.spritesheet.linha = 0
     this.spritesheet.coluna = 0
+    this.pontuacao = 0
 }
 Painel.prototype.atualizar = function () {
 
@@ -23,4 +24,11 @@ Painel.prototype.desenhar = function () {
 
     // volta ao normal
     this.context.scale(2, 2)
+
+    // Pontuação
+    this.context.save();
+    this.context.fillStyle = 'white';
+    this.context.font = '18px sans-serif';
+    this.context.fillText(this.pontuacao, 100, 27);
+    this.context.restore();
 }

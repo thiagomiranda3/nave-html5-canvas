@@ -133,6 +133,12 @@ function configuracoesIniciais() {
         }
     })
 
+    engine.colisor.aoColidir = function (o1, o2) {
+        if((o1 instanceof Tiro && o2 instanceof Ovni) ||
+           (o1 instanceof Ovni && o2 instanceof Tiro))
+        sprites.painel.pontuacao += 10
+    }
+
     criacaoInimigos()
 }
 
